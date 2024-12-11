@@ -30,29 +30,6 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
     public int size() {
         return size;
     }
-    /*
-    @Override
-    public Iterator<V> iterator() {
-        return new Iterator<V>() {
-            private Node<K, V> current = head;
-
-            @Override
-            public boolean hasNext() {
-                return current != null;
-            }
-
-            @Override
-            public V next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                V value = current.value;
-                current = current.next;
-                return value;
-            }
-        }
-    }
-    */
 
     @Override
     public Iterator<Node<K, V>> iterator() {
