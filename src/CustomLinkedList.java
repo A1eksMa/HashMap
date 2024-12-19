@@ -55,9 +55,11 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
     }
 
     public boolean remove(Object o) {
+
         if (head == null) {
             return false;
         }
+
         if (o == null) {
             if (head.getKey() == null) {
                 head = head.getNext();
@@ -67,14 +69,17 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
                 return false;
             }
         } else {
-            Node<K, V> tmp = head;
-            while (tmp.getNext() != null) {
-                if (tmp.getNext().getKey().equals(o)) {
-                    tmp.setNext(tmp.getNext().getNext());
-                    size--;
-                    return true;
+            int oHashcode = o.hashCode();
+            Node<K, V> current = head;
+            for (int i = 0; i < size; i++) {
+                if (current.getNext().getKey().hashCode() == oHashcode) {
+                    if (current.getNext().getKey().equals(o)) {
+                        current.setNext(current.getNext().getNext());
+                        size--;
+                        return true;
+                    }
+                    current = current.getNext();
                 }
-                tmp = tmp.getNext();
             }
         }
         return false;
