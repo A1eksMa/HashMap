@@ -1,33 +1,19 @@
 import java.util.Iterator;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 
-public class CustomLinkedList<Node<K, V>> implements Iterable<Node<K, V>> {
+public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
     private int size;
     private Node<K, V> head;
-
 
     public CustomLinkedList() {
         this.size = 0;
         this.head = null;
     }
 
-    public void add(Node<K, V> node) {
-        if (head == null) {
-            head = node;
-        } else {
-            Node<K, V> current = head;
-
-            while (current.getNext() != null) {
-                current = current.getNext();
-            }
-            current.setNext(node);
-        }
-        size++;
-    }
-
     public int size() {
         return size;
-    }
+    }    
 
     @Override
     public Iterator<Node<K, V>> iterator() {
@@ -45,19 +31,120 @@ public class CustomLinkedList<Node<K, V>> implements Iterable<Node<K, V>> {
                     throw new NoSuchElementException();
                 }
                 Node<K, V> current_node = current;
-                //Node<K, V> next_node = current.getNext();
-                current = current.getNext();//next_node;
+                Node<K, V> next_node = current.getNext();
+                current = next_node;
                 return current_node;
             }
         };
     }
 
-    public boolean remove(Object o) {
+    public boolean add(Node<K, V> e) {
+        if (head == null) {
+            head = e;
+        } else {
+            Node<K, V> current = head;
 
+            while (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current.setNext(e);
+        }
+        size++;
+        return true;
+    }
+
+    public boolean addAll(Collection<? extends Node<K, V>> c) {
+        boolean modified = false;
+        int cnt = 0;
+        for (Node<K, V> e: c) {
+            if (add(e)) {
+                modified = true;
+            }
+            cnt++;
+        }
+        size +=cnt;
+        return modified;
+    }
+
+    public void clear() {
+        Node<K, V> current = head;
+        while (current != null) {
+            Node<K, V> next = current.getNext();
+            current.setNext(null);
+            current = next;
+        }
+        head = null;
+        size = 0;
+    }
+    
+/**
+    public boolean contains(Object o) {
+        Node<K, V> current = head;
+        while (current != null) {
+            if (o == null || current.getClass() != o.getClass()) return false;
+            if (Object.equals(current.getKey(), ((Node<?, ?>) o).getKey())) {
+                return true;
+            }
+            current = current.getNext();
+        }
+        return false;
+    }
+**/
+
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    public boolean equals(Object o) {
+        return false;
+    }
+
+    public int hashCode() {
+        return 0;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    /**
+    public Object[] toArray() {
+    }
+
+    public <T> T[] toArray(T[] a) {
+    }
+
+    public default Stream<E> stream() {
+    }
+    
+    public default Spliterator<E> spliterator() {
+    }
+    
+    public default boolean removeIf(Predicate<? super E> filter) {
+        return default boolean;
+    }
+    
+    public default Stream<E> parallelStream() {
+        return default Stream<E>;            
+    }
+
+
+    public boolean remove(Object o) {
         if (head == null) {
             return false;
         }
-
         if (o == null) {
             if (head.getKey() == null) {
                 head = head.getNext();
@@ -67,20 +154,33 @@ public class CustomLinkedList<Node<K, V>> implements Iterable<Node<K, V>> {
                 return false;
             }
         } else {
-            int oHashcode = o.hashCode();
-            Node<K, V> current = head;
-            for (int i = 0; i < size; i++) {
-                if (current.getNext().getKey().hashCode() == oHashcode) {
-                    if (current.getNext().getKey().equals(o)) {
-                        current.setNext(current.getNext().getNext());
-                        size--;
-                        return true;
-                    }
-                    current = current.getNext();
+            Node<K, V> tmp = head;
+            while (tmp.getNext() != null) {
+                if (tmp.getNext().getKey().equals(o)) {
+                    tmp.setNext(tmp.getNext().getNext());
+                    size--;
+                    return true;
                 }
+                tmp = tmp.getNext();
             }
         }
         return false;
+    }
+
+    Здесь методы
+    
+    public void add(Node<K, V> newNode) {
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node<K, V> current = head;
+
+            while (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current.setNext(newNode);
+        }
+        size++;
     }
 
     public boolean remove(Node<K, V> node) {
@@ -105,4 +205,6 @@ public class CustomLinkedList<Node<K, V>> implements Iterable<Node<K, V>> {
         }
         return false;
     }  
+    */
+
 }
