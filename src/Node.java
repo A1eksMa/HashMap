@@ -5,7 +5,6 @@ public class Node<K,V> {
     private Node<K,V> next;
         
     public Node(K key, V value) {
-//        this.hash = key.hashCode();
         this.hash = key!=null? key.hashCode():0;
         this.key = key;
         this.value = value;
