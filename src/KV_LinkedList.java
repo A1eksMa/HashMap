@@ -2,11 +2,11 @@ import java.util.Iterator;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
-public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
+public class KV_LinkedList<K, V> implements Iterable<KV_Node<K, V>> {
     private int size;
-    private Node<K, V> head;
+    private KV_Node<K, V> head;
 
-    public CustomLinkedList() {
+    public KV_LinkedList() {
         this.size = 0;
         this.head = null;
     }
@@ -16,9 +16,9 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
     }    
 
     @Override
-    public Iterator<Node<K, V>> iterator() {
-        return new Iterator<Node<K, V>>() {
-            private Node<K, V> current = head;
+    public Iterator<KV_Node<K, V>> iterator() {
+        return new Iterator<KV_Node<K, V>>() {
+            private KV_Node<K, V> current = head;
 
             @Override
             public boolean hasNext() {
@@ -26,23 +26,23 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
             }
 
             @Override
-            public Node<K, V> next() {
+            public KV_Node<K, V> next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Node<K, V> current_node = current;
-                Node<K, V> next_node = current.getNext();
+                KV_Node<K, V> current_node = current;
+                KV_Node<K, V> next_node = current.getNext();
                 current = next_node;
                 return current_node;
             }
         };
     }
 
-    public boolean add(Node<K, V> e) {
+    public boolean add(KV_Node<K, V> e) {
         if (head == null) {
             head = e;
         } else {
-            Node<K, V> current = head;
+            KV_Node<K, V> current = head;
 
             while (current.getNext() != null) {
                 current = current.getNext();
@@ -53,10 +53,10 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
         return true;
     }
 
-    public boolean addAll(Collection<? extends Node<K, V>> c) {
+    public boolean addAll(Collection<? extends KV_Node<K, V>> c) {
         boolean modified = false;
         int cnt = 0;
-        for (Node<K, V> e: c) {
+        for (KV_Node<K, V> e: c) {
             if (add(e)) {
                 modified = true;
             }
@@ -67,9 +67,9 @@ public class CustomLinkedList<K, V> implements Iterable<Node<K, V>> {
     }
 
     public void clear() {
-        Node<K, V> current = head;
+        KV_Node<K, V> current = head;
         while (current != null) {
-            Node<K, V> next = current.getNext();
+            KV_Node<K, V> next = current.getNext();
             current.setNext(null);
             current = next;
         }

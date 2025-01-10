@@ -1,10 +1,10 @@
-public class Node<K,V> {
+public class KV_Node<K,V> {
     private int hash;
     private K key;
     private V value;
-    private Node<K,V> next;
+    private KV_Node<K,V> next;
         
-    public Node(K key, V value) {
+    public KV_Node(K key, V value) {
         this.hash = key!=null? key.hashCode():0;
         this.key = key;
         this.value = value;
@@ -23,11 +23,11 @@ public class Node<K,V> {
         return value;
     }
 
-    public Node<K,V> getNext() {
+    public KV_Node<K,V> getNext() {
         return next;
     }    
 
-    public void setNext(Node<K,V> n) {
+    public void setNext(KV_Node<K,V> n) {
         this.next = n;
     }
 
